@@ -89,14 +89,14 @@ func TestInsufficientMinGasPriceTable(t *testing.T) {
 		},
 		{
 			name:                         "insufficient fee error",
-			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 10utia required: 100utia"),
+			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 10usr required: 100usr"),
 			inputGasPrice:                0.01,
 			expectedGasPrice:             0.1,
 			isInsufficientMinGasPriceErr: true,
 		},
 		{
 			name:                         "insufficient fee error with zero gas price",
-			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 0utia required: 100utia"),
+			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 0usr required: 100usr"),
 			inputGasPrice:                0,
 			inputGasLimit:                100,
 			expectedGasPrice:             1,
@@ -104,7 +104,7 @@ func TestInsufficientMinGasPriceTable(t *testing.T) {
 		},
 		{
 			name:                         "insufficient fee error with zero gas price and zero gas limit",
-			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 0utia required: 100utia"),
+			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 0usr required: 100usr"),
 			inputGasPrice:                0,
 			inputGasLimit:                0,
 			isInsufficientMinGasPriceErr: true,
@@ -117,13 +117,13 @@ func TestInsufficientMinGasPriceTable(t *testing.T) {
 		},
 		{
 			name:                         "error with zero required gas price",
-			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 10utia required: 0utia"),
+			err:                          errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 10usr required: 0usr"),
 			isInsufficientMinGasPriceErr: true,
 			expectParsingError:           true,
 		},
 		{
 			name:                         "error with extra wrapping",
-			err:                          errors.Wrap(errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 10utia required: 100utia"), "extra wrapping"),
+			err:                          errors.Wrap(errors.Wrap(sdkerrors.ErrInsufficientFee, "insufficient fees; got: 10usr required: 100usr"), "extra wrapping"),
 			inputGasPrice:                0.01,
 			expectedGasPrice:             0.1,
 			isInsufficientMinGasPriceErr: true,

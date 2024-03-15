@@ -43,7 +43,7 @@ type Operation struct {
 
 const (
 	// Set the default gas limit to cover the costs of most transactions.
-	// At 0.1 utia per gas, this equates to 20_000utia per transaction.
+	// At 0.1 usr per gas, this equates to 20_000usr per transaction.
 	DefaultGasLimit = 200_000
 )
 

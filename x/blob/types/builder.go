@@ -7,6 +7,7 @@ import (
 	"cosmossdk.io/log"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sdkclient "github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
@@ -19,6 +20,10 @@ import (
 )
 
 type localEncoder struct{}
+
+func (localEncoder) RegisterLegacyAminoCodec(c *codec.LegacyAmino) {
+	RegisterLegacyAminoCodec(c)
+}
 
 func (localEncoder) RegisterInterfaces(r codectypes.InterfaceRegistry) {
 	RegisterInterfaces(r)

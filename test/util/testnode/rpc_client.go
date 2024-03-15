@@ -56,8 +56,12 @@ func StartGRPCServer(app srvtypes.Application, appCfg *srvconfig.Config, cctx Co
 	emptycleanup := func() error { return nil }
 	// Add the tx service in the gRPC router.
 	app.RegisterTxService(cctx.Context)
+
 	// Add the tendermint queries service in the gRPC router.
 	app.RegisterTendermintService(cctx.Context)
+
+	// Add the node service queries to the grpc router.
+	app.RegisterNodeService(cctx.Context, *appCfg)
 
 	// Run maxSendMsgSize := cfg.MaxSendMsgSize to gogoreflection.Register(grpcSrv)
 	grpcSrv, err := srvgrpc.NewGRPCServer(cctx.Context, app, appCfg.GRPC)
@@ -65,6 +69,8 @@ func StartGRPCServer(app srvtypes.Application, appCfg *srvconfig.Config, cctx Co
 		return Context{}, emptycleanup, err
 	}
 
+	// Start the gRPC server in a goroutine. Note, the provided ctx will ensure
+	// that the server is gracefully shut down.
 	go func() error {
 		return srvgrpc.StartGRPCServer(cctx.rootCtx, log.NewNopLogger().With("module", "grpc-server"), appCfg.GRPC, grpcSrv)
 	}()
@@ -78,7 +84,7 @@ func StartGRPCServer(app srvtypes.Application, appCfg *srvconfig.Config, cctx Co
 	cctx.Context = cctx.WithGRPCClient(conn)
 
 	return cctx, func() error {
-		// grpcSrv.Stop()
+		grpcSrv.GracefulStop()
 		return nil
 	}, nil
 }

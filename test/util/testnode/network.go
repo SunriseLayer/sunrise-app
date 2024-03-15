@@ -46,7 +46,7 @@ func NewNetwork(t testing.TB, cfg *Config) (cctx Context, rpcAddr, grpcAddr stri
 	require.NoError(t, err)
 
 	t.Cleanup(func() {
-		// t.Log("tearing down testnode")
+		t.Log("tearing down testnode")
 		err := stopNode()
 		if err != nil {
 			// the test has already completed so log the error instead of

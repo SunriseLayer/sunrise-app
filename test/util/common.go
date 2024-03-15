@@ -369,6 +369,7 @@ func MakeTestCodec() *codec.LegacyAmino {
 	sdk.RegisterLegacyAminoCodec(cdc)
 	ccodec.RegisterCrypto(cdc)
 	params.AppModuleBasic{}.RegisterLegacyAminoCodec(cdc)
+	bstypes.RegisterLegacyAminoCodec(cdc)
 	return cdc
 }
 

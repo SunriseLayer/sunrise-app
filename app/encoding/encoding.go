@@ -12,6 +12,7 @@ import (
 )
 
 type ModuleRegister interface {
+	RegisterLegacyAminoCodec(*codec.LegacyAmino)
 	RegisterInterfaces(codectypes.InterfaceRegistry)
 }
 
