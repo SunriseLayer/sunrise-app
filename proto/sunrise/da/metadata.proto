@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package sunrise.da;
+
+import "amino/amino.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/sunriselayer/sunrise/x/da/types";
+
+message Metadata {
+  uint64 shard_size = 1;
+  uint64 shard_count = 2;
+  repeated string shard_uris = 3;
+}
